@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Universo Académico 🎀 Organizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-cream: #FFFDF6;
+            --pink-pastel: #FFE5EC;
+            --pink-medium: #FFC2D1;
+            --pink-dark: #FB6F92;
+            --pink-accent: #FF85A2;
+            --text-dark: #5D4B53; /* Un marrón café muy suave y estético */
+            --white: #FFFFFF;
+            --success-bg: #E8F5E9;
+            --success-border: #81C784;
+        }
+
+        /* Reset y General */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: 'Quicksand', sans-serif;
+            background-image: radial-gradient(#FFC2D1 0.8px, transparent 0.8px), radial-gradient(#FFC2D1 0.8px, #FFFDF6 0.8px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+            padding: 30px 15px;
+        }
+
+        /* Estilo Scrollbar Lindo */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-cream);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink-medium);
+            border-radius: 10px;
+            border: 2px solid var(--bg-cream);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--pink-dark);
+        }
+
+        /* Contenedor Principal */
+        .wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header con Hello Kitty */
+        header {
+            position: relative;
+            background-color: var(--pink-pastel);
+            border: 3px solid var(--pink-medium);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 15px rgba(251, 111, 146, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url(img/Hello1.png) repeat;
+            background-size: 50px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .header-mascot-left {
+            width: 80px;
+            height: auto;
+            animation: bounce 3s infinite ease-in-out;
+        }
+
+        .header-title-box h1 {
+            font-family: 'Comfortaa', sans-serif;
+            color: var(--pink-dark);
+            font-size: 2.3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 0px var(--white);
+            margin-bottom: 5px;
+        }
+
+        .header-title-box p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Grid Principal */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 992px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tarjetas Estilo Hello Kitty */
+        .hk-card {
+            background-color: var(--white);
+            border: 3px solid var(--pink-pastel);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 6px 12px rgba(93, 75, 83, 0.05);
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .hk-card::after {
+            content: '🎀';
+            position: absolute;
+            top: -12px;
+            right: 25px;
+            font-size: 1.5rem;
+        }
+
+        .hk-card h2 {
+            font-family: 'Comfortaa', sans-serif;
+            color: var(--pink-dark);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed var(--pink-medium);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Horario Escolar */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .day-column {
+            background-color: var(--bg-cream);
+            border: 2px solid var(--pink-pastel);
+            border-radius: 15px;
+            padding: 12px;
+            min-height: 250px;
+        }
+
+        .day-column h3 {
+            text-align: center;
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1rem;
+            color: var(--pink-dark);
+            margin-bottom: 12px;
+            background-color: var(--pink-pastel);
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .class-card {
+            background: var(--white);
+            border: 2px solid var(--pink-medium);
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .class-card .class-subject {
+            font-weight: 700;
+            color: var(--pink-dark);
+        }
+
+        .class-card .class-time {
+            font-size: 0.75rem;
+            color: #8E7C84;
+            margin: 2px 0;
+        }
+
+        .class-card .class-room {
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        .class-card .delete-class {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: none;
+            border: none;
+            color: #FFB3C6;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .class-card .delete-class:hover {
+            color: var(--pink-dark);
+        }
+
+        .add-class-btn {
+            background-color: var(--pink-pastel);
+            color: var(--pink-dark);
+            border: 2px dashed var(--pink-medium);
+            border-radius: 8px;
+            padding: 6px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .add-class-btn:hover {
+            background-color: var(--pink-medium);
+            color: var(--white);
+        }
+
+        /* Formularios Lindos */
+        label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: block;
+            color: var(--text-dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid var(--pink-pastel);
+            border-radius: 12px;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--pink-dark);
+            background-color: var(--white);
+            box-shadow: 0 0 8px rgba(251, 111, 146, 0.2);
+        }
+
+        .btn-hk {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--pink-dark);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(251, 111, 146, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-hk:hover {
+            background-color: var(--pink-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(251, 111, 146, 0.4);
+        }
+
+        /* Lista de Pendientes */
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: var(--bg-cream);
+            border: 2px solid var(--pink-pastel);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+
+        .todo-item:hover {
+            transform: scale(1.01);
+        }
+
+        .todo-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-grow: 1;
+        }
+
+        .todo-checkbox {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--pink-medium);
+            border-radius: 6px;
+            background-color: var(--white);
+            cursor: pointer;
+            display: inline-grid;
+            place-content: center;
+            margin-bottom: 0;
+        }
+
+        .todo-checkbox::before {
+            content: '🎀';
+            font-size: 0.8rem;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+        }
+
+        .todo-checkbox:checked {
+            background-color: var(--pink-pastel);
+            border-color: var(--pink-dark);
+        }
+
+        .todo-checkbox:checked::before {
+            transform: scale(1);
+        }
+
+        .todo-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .todo-title {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .completed-task .todo-title {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 2px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .badge-type {
+            background-color: #E2F0CB;
+            color: #5D7A40;
+        }
+
+        .badge-materia {
+            background-color: var(--pink-pastel);
+            color: var(--pink-dark);
+            border: 1px dashed var(--pink-dark);
+        }
+
+        .badge-priority-alta {
+            background-color: #FFD1D1;
+            color: #C13D3D;
+        }
+
+        .badge-priority-media {
+            background-color: #FFEFC7;
+            color: #B58410;
+        }
+
+        .badge-priority-baja {
+            background-color: #E1F5FE;
+            color: #0288D1;
+        }
+
+        .todo-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .date-text {
+            font-size: 0.8rem;
+            color: #8E7C84;
+            font-weight: 600;
+        }
+
+        .score-badge {
+            background-color: #FFF9C4;
+            border: 1px solid #FFF59D;
+            color: #F57F17;
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        .btn-add-score {
+            background-color: var(--pink-pastel);
+            color: var(--pink-dark);
+            border: 1px solid var(--pink-medium);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-delete-task {
+            background: none;
+            border: none;
+            color: #FFB3C6;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px;
+        }
+
+        .btn-delete-task:hover {
+            color: var(--pink-dark);
+        }
+
+        /* Enlaces Drive */
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .drive-button {
+            background-color: var(--bg-cream);
+            border: 2px solid var(--pink-pastel);
+            border-radius: 15px;
+            padding: 12px 10px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            word-break: break-word;
+            position: relative;
+        }
+
+        .drive-button i {
+            font-size: 1.8rem;
+            color: #FF85A2;
+        }
+
+        .drive-button:hover {
+            background-color: var(--pink-pastel);
+            border-color: var(--pink-dark);
+            transform: translateY(-2px);
+        }
+
+        .delete-link {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            color: #FFC2D1;
+            font-size: 0.8rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .delete-link:hover {
+            color: var(--pink-dark);
+        }
+
+        /* Hello Kitty Decoradora Flotante */
+        .decor-hk {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .decor-hk img {
+            max-width: 130px;
+            height: auto;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        /* Animaciones */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+        }
+
+        /* Estilos del Modal para Horario */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(93, 75, 83, 0.4);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border: 3px solid var(--pink-medium);
+            border-radius: 20px;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--pink-dark);
+        }
+
+        .close-modal:hover {
+            color: var(--pink-accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- HEADER -->
+        <header>
+            <img src="img/Hello1.png" alt="Hello Kitty Estudiando" class="header-mascot-left">
+            <div class="header-title-box">
+                <h1>Mi Organizador Académico 🎀</h1>
+                <p>Pendientes, Tareas y Exámenes </p>
+            </div>
+        </header>
+
+        <!-- SECCIÓN COMPLETA DEL HORARIO DE CLASES -->
+        <div class="hk-card" style="margin-bottom: 30px;">
+            <h2><i class="fa-solid fa-calendar-days"></i> Mi Horario Semanal</h2>
+            <div class="schedule-grid">
+                <!-- LUNES -->
+                <div class="day-column" id="day-lunes">
+                    <h3>Lunes</h3>
+                    <div class="class-list" id="list-lunes"></div>
+                    <button class="add-class-btn" onclick="openClassModal('lunes')"><i class="fa-solid fa-plus"></i> Clase</button>
+                </div>
+                <!-- MARTES -->
+                <div class="day-column" id="day-martes">
+                    <h3>Martes</h3>
+                    <div class="class-list" id="list-martes"></div>
+                    <button class="add-class-btn" onclick="openClassModal('martes')"><i class="fa-solid fa-plus"></i> Clase</button>
+                </div>
+                <!-- MIÉRCOLES -->
+                <div class="day-column" id="day-miercoles">
+                    <h3>Miércoles</h3>
+                    <div class="class-list" id="list-miercoles"></div>
+                    <button class="add-class-btn" onclick="openClassModal('miercoles')"><i class="fa-solid fa-plus"></i> Clase</button>
+                </div>
+                <!-- JUEVES -->
+                <div class="day-column" id="day-jueves">
+                    <h3>Jueves</h3>
+                    <div class="class-list" id="list-jueves"></div>
+                    <button class="add-class-btn" onclick="openClassModal('jueves')"><i class="fa-solid fa-plus"></i> Clase</button>
+                </div>
+                <!-- VIERNES -->
+                <div class="day-column" id="day-viernes">
+                    <h3>Viernes</h3>
+                    <div class="class-list" id="list-viernes"></div>
+                    <button class="add-class-btn" onclick="openClassModal('viernes')"><i class="fa-solid fa-plus"></i> Clase</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRID PRINCIPAL (FORMULARIOS Y PENDIENTES) -->
+        <div class="main-grid">
+            
+            <!-- COLUMNA IZQUIERDA -->
+            <div>
+                <!-- AÑADIR PENDIENTES -->
+                <div class="hk-card">
+                    <h2><i class="fa-solid fa-circle-plus"></i> Añadir Pendiente</h2>
+                    <form id="todo-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label for="todo-title">Nombre del Deber / Examen</label>
+                                <input type="text" id="todo-title" placeholder="Ej: Proyecto Final, Ensayo..." required>
+                            </div>
+                            <div>
+                                <label for="todo-materia">Materia / Asignatura</label>
+                                <input type="text" id="todo-materia" list="materias-list" placeholder="Selecciona de tu horario o escribe..." required>
+                                <datalist id="materias-list"></datalist>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label for="todo-type">Tipo</label>
+                                <select id="todo-type">
+                                    <option value="Tarea">📝 Tarea</option>
+                                    <option value="Examen">🎯 Examen</option>
+                                    <option value="Lección">📖 Lección</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="todo-priority">Prioridad</label>
+                                <select id="todo-priority">
+                                    <option value="alta">💖 Alta</option>
+                                    <option value="media">🌸 Media</option>
+                                    <option value="baja">✨ Baja</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="todo-date">Fecha de Entrega</label>
+                                <input type="date" id="todo-date" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-hk"><i class="fa-solid fa-heart"></i> Guardar Actividad</button>
+                    </form>
+                </div>
+
+                <!-- LISTADO DE PENDIENTES -->
+                <div class="hk-card">
+                    <h2><i class="fa-solid fa-list-check"></i> Listado de Deberes, Exámenes y Lecciones</h2>
+                    <div id="todo-list">
+                        <!-- Generado Dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA -->
+            <div>
+                <!-- DRIVES Y ENLACES -->
+                <div class="hk-card">
+                    <h2><i class="fa-solid fa-cloud"></i> Mis Carpetas Drive</h2>
+                    <form id="link-form" style="margin-bottom: 20px;">
+                        <label for="link-name">Nombre de la Carpeta</label>
+                        <input type="text" id="link-name" placeholder="Ej: Drive de Álgebra" required>
+                        <label for="link-url">Enlace URL</label>
+                        <input type="url" id="link-url" placeholder="https://drive.google.com/..." required>
+                        <button type="submit" class="btn-hk"><i class="fa-solid fa-link"></i> Agregar Enlace</button>
+                    </form>
+                    <div class="link-grid" id="links-container">
+                        <!-- Enlaces dinámicos -->
+                    </div>
+                </div>
+
+                <!-- NOTAS RÁPIDAS -->
+                <div class="hk-card">
+                    <h2><i class="fa-solid fa-note-sticky"></i> Apuntes Rápidos</h2>
+                    <textarea id="quick-notes" rows="6" placeholder="Escribe tus ideas, tareas extra, o contraseñas rápidas aquí... 💕"></textarea>
+                    <button id="save-notes-btn" class="btn-hk"><i class="fa-solid fa-floppy-disk"></i> Guardar Notas</button>
+                </div>
+
+                <!-- DECORACIÓN FINAL -->
+                <div class="decor-hk">
+                    <img src="img/Hello2.png" alt="Hello Kitty con Lápiz">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL PARA AGREGAR CLASE AL HORARIO -->
+    <div class="modal" id="class-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeClassModal()">&times;</span>
+            <h2 style="font-size: 1.2rem; color: var(--pink-dark); border: none;"><i class="fa-solid fa-calendar-plus"></i> Agregar Clase</h2>
+            <form id="class-form">
+                <input type="hidden" id="modal-day">
+                <label for="class-subject-input">Materia</label>
+                <input type="text" id="class-subject-input" placeholder="Ej: Programación" required>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                        <label for="class-start">Inicio</label>
+                        <input type="time" id="class-start" required>
+                    </div>
+                    <div>
+                        <label for="class-end">Fin</label>
+                        <input type="time" id="class-end" required>
+                    </div>
+                </div>
+
+                <label for="class-room-input">Aula / Enlace</label>
+                <input type="text" id="class-room-input" placeholder="Ej: Lab 302 o Zoom Link">
+
+                <button type="submit" class="btn-hk" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Agregar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        /* === LÓGICA DE ACTIVIDADES (TAREAS, EXÁMENES, LECCIONES) === */
+        const todoForm = document.getElementById('todo-form');
+        const todoList = document.getElementById('todo-list');
+
+        let todos = JSON.parse(localStorage.getItem('hk_uni_todos')) || [];
+
+        function saveTodos() {
+            localStorage.setItem('hk_uni_todos', JSON.stringify(todos));
+            renderTodos();
+        }
+
+        function renderTodos() {
+            todoList.innerHTML = '';
+            if (todos.length === 0) {
+                todoList.innerHTML = `<p style="text-align: center; color: #8E7C84; font-style: italic; margin-top: 15px;">No tienes pendientes por ahora. ¡Buen trabajo! ✨</p>`;
+                return;
+            }
+
+            todos.forEach((todo, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `todo-item ${todo.completed ? 'completed-task' : ''}`;
+                
+                const scoreSection = todo.completed 
+                    ? (todo.grade 
+                        ? `<span class="score-badge">Nota: ${todo.grade}</span>`
+                        : `<button class="btn-add-score" onclick="addGrade(${index})"><i class="fa-solid fa-star"></i> + Nota</button>`)
+                    : '';
+
+                itemDiv.innerHTML = `
+                    <div class="todo-left">
+                        <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} onclick="toggleTodo(${index})">
+                        <div class="todo-info">
+                            <span class="todo-title">${todo.title}</span>
+                            <div class="badge-row">
+                                <span class="badge badge-type">${getTypeEmoji(todo.type)} ${todo.type}</span>
+                                <span class="badge badge-materia">🌸 ${todo.materia}</span>
+                                <span class="badge badge-priority-${todo.priority}">Prioridad ${todo.priority}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="todo-right">
+                        <span class="date-text"><i class="fa-regular fa-calendar"></i> ${formatDate(todo.date)}</span>
+                        ${scoreSection}
+                        <button class="btn-delete-task" onclick="deleteTodo(${index})"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
+                todoList.appendChild(itemDiv);
+            });
+        }
+
+        function getTypeEmoji(type) {
+            if (type === 'Tarea') return '📝';
+            if (type === 'Examen') return '🎯';
+            return '📖';
+        }
+
+        function formatDate(dateString) {
+            const options = { month: 'short', day: 'numeric' };
+            const date = new Date(dateString + 'T00:00:00');
+            return date.toLocaleDateString('es-ES', options);
+        }
+
+        todoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newTodo = {
+                title: document.getElementById('todo-title').value,
+                materia: document.getElementById('todo-materia').value,
+                type: document.getElementById('todo-type').value,
+                priority: document.getElementById('todo-priority').value,
+                date: document.getElementById('todo-date').value,
+                completed: false,
+                grade: null
+            };
+            todos.push(newTodo);
+            saveTodos();
+            todoForm.reset();
+        });
+
+        window.toggleTodo = function(index) {
+            todos[index].completed = !todos[index].completed;
+            saveTodos();
+        };
+
+        window.addGrade = function(index) {
+            const grade = prompt("¿Qué nota sacaste en esta actividad? (ej. 9.5/10, A, 100)");
+            if (grade !== null && grade.trim() !== '') {
+                todos[index].grade = grade;
+                saveTodos();
+            }
+        };
+
+        window.deleteTodo = function(index) {
+            if (confirm("¿Estás segura de eliminar este pendiente? 🌸")) {
+                todos.splice(index, 1);
+                saveTodos();
+            }
+        };
+
+
+        /* === LÓGICA DEL HORARIO ESCOLAR === */
+        const classModal = document.getElementById('class-modal');
+        const classForm = document.getElementById('class-form');
+        let schedule = JSON.parse(localStorage.getItem('hk_uni_schedule')) || {
+            lunes: [], martes: [], miercoles: [], jueves: [], viernes: []
+        };
+
+        function saveSchedule() {
+            localStorage.setItem('hk_uni_schedule', JSON.stringify(schedule));
+            renderSchedule();
+            updateMateriaDatalist();
+        }
+
+        function renderSchedule() {
+            const days = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
+            days.forEach(day => {
+                const listContainer = document.getElementById(`list-${day}`);
+                listContainer.innerHTML = '';
+                
+                // Ordenar clases por hora de inicio
+                schedule[day].sort((a, b) => a.start.localeCompare(b.start));
+
+                schedule[day].forEach((cls, index) => {
+                    const clsDiv = document.createElement('div');
+                    clsDiv.className = 'class-card';
+                    clsDiv.innerHTML = `
+                        <button class="delete-class" onclick="deleteClass('${day}', ${index})">&times;</button>
+                        <div class="class-subject">🌸 ${cls.subject}</div>
+                        <div class="class-time"><i class="fa-regular fa-clock"></i> ${cls.start} - ${cls.end}</div>
+                        ${cls.room ? `<div class="class-room"><i class="fa-solid fa-location-dot"></i> ${cls.room}</div>` : ''}
+                    `;
+                    listContainer.appendChild(clsDiv);
+                });
+            });
+        }
+
+        window.openClassModal = function(day) {
+            document.getElementById('modal-day').value = day;
+            classModal.style.display = 'flex';
+        };
+
+        window.closeClassModal = function() {
+            classModal.style.display = 'none';
+            classForm.reset();
+        };
+
+        classForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const day = document.getElementById('modal-day').value;
+            const newClass = {
+                subject: document.getElementById('class-subject-input').value,
+                start: document.getElementById('class-start').value,
+                end: document.getElementById('class-end').value,
+                room: document.getElementById('class-room-input').value
+            };
+            schedule[day].push(newClass);
+            saveSchedule();
+            closeClassModal();
+        });
+
+        window.deleteClass = function(day, index) {
+            schedule[day].splice(index, 1);
+            saveSchedule();
+        };
+
+        // Sincroniza las materias del horario con las sugerencias de los pendientes
+        function updateMateriaDatalist() {
+            const datalist = document.getElementById('materias-list');
+            if (!datalist) return;
+            datalist.innerHTML = '';
+            
+            const subjectsSet = new Set();
+            const days = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
+            days.forEach(day => {
+                if (schedule[day]) {
+                    schedule[day].forEach(cls => {
+                        if (cls.subject && cls.subject.trim() !== '') {
+                            subjectsSet.add(cls.subject.trim());
+                        }
+                    });
+                }
+            });
+
+            subjectsSet.forEach(subject => {
+                const option = document.createElement('option');
+                option.value = subject;
+                datalist.appendChild(option);
+            });
+        }
+
+
+        /* === LÓGICA DE CARPETAS / ENLACES DRIVE === */
+        const linkForm = document.getElementById('link-form');
+        const linksContainer = document.getElementById('links-container');
+        let links = JSON.parse(localStorage.getItem('hk_uni_links')) || [];
+
+        function saveLinks() {
+            localStorage.setItem('hk_uni_links', JSON.stringify(links));
+            renderLinks();
+        }
+
+        function renderLinks() {
+            linksContainer.innerHTML = '';
+            links.forEach((link, index) => {
+                const btn = document.createElement('a');
+                btn.href = link.url;
+                btn.target = '_blank';
+                btn.className = 'drive-button';
+                btn.innerHTML = `
+                    <button class="delete-link" onclick="event.preventDefault(); deleteLink(${index});">&times;</button>
+                    <i class="fa-brands fa-google-drive"></i>
+                    <span>${link.name}</span>
+                `;
+                linksContainer.appendChild(btn);
+            });
+        }
+
+        linkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newLink = {
+                name: document.getElementById('link-name').value,
+                url: document.getElementById('link-url').value
+            };
+            links.push(newLink);
+            saveLinks();
+            linkForm.reset();
+        });
+
+        window.deleteLink = function(index) {
+            links.splice(index, 1);
+            saveLinks();
+        };
+
+
+        /* === LÓGICA DE APUNTES/NOTAS === */
+        const notesTextArea = document.getElementById('quick-notes');
+        document.getElementById('save-notes-btn').addEventListener('click', () => {
+            localStorage.setItem('hk_uni_notes', notesTextArea.value);
+            alert('¡Tus notas están guardadas con éxito, preciosa! 💖');
+        });
+
+
+        /* === CARGA E INICIALIZACIÓN === */
+        window.addEventListener('load', () => {
+            notesTextArea.value = localStorage.getItem('hk_uni_notes') || '';
+            renderTodos();
+            renderSchedule();
+            renderLinks();
+            updateMateriaDatalist();
+        });
+    </script>
+</body>
+</html>
